@@ -41,6 +41,15 @@
 				</section>
 				<section data-markdown>
 					<textarea data-template>
+						## Todays goals to understand:
+						* what RxJava is
+						* how and when to apply it
+						* that it's not magic or an end-all solution
+						* that it _can_ help improve user experience and memory performance
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
 						## What is RxJava
 						from [the github repo](https://github.com/ReactiveX/RxJava):
 
@@ -52,13 +61,24 @@
 						What we used to do:
 						```
 						public List<String> getIds() {
-							List<String> result = new LinkedList<>();
-							for (Entity e: dao.getEntities()) {
-								result.add(e.getId());
+							List<Entity> entities = dao.getEntities();
+							List<String> result = new ArrayList<>(entities.size());
+							for (Entity entity : entities) {
+								result.add(entity.getid());
 							}
 							return result;
 						}
 						```
+						or:
+						```
+						public List<String> getIds() {
+							return dao.getEntities().stream().map(Entity::getId).toList();
+						}
+						```
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
 						What we can now do:
 						```
 						public Flowable<String> getIds() {
@@ -220,7 +240,20 @@
 						See example 2.
 					</textarea>
 				</section>
-			</div>
+				<section data-markdown>
+						<textarea data-template>
+							## Common Traps
+							* **Failure to subscribe** (See example 3)
+							* Failure to 'think reactive'
+							* Sync behaviour
+						</textarea>
+					</section>
+					<section data-markdown>
+							<textarea data-template>
+								# Questions so far?
+							</textarea>
+						</section>
+						</div>
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
